@@ -1,0 +1,13 @@
+import testing ;
+
+lib boost_test : : <name>boost_unit_test_framework  ;
+
+project numpy_data_test
+  : requirements
+    <library>boost_test
+    <link>shared:<define>BOOST_TEST_DYN_LINK
+  ;
+
+run runtime_byte_order_conversion.cpp : : : : runtime_byte_order_conversion_test : ;
+run array_export.cpp : : : : array_export_test : ;
+compile-fail non_arithmetic_type_export.cpp : : non_arithmetic_type_export_test ;

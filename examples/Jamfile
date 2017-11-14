@@ -1,0 +1,3 @@
+exe 01_simple_array_export : 01_simple_array_export.cpp : ;
+exe 02_export_with_shape : 02_export_with_shape.cpp : ;
+exe 03_export_structs : 03_export_structs.cpp : ;

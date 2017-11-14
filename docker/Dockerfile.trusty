@@ -1,0 +1,22 @@
+FROM ubuntu:14.04
+LABEL maintainer "Norbert Wenzel"
+WORKDIR /numpy_data
+
+RUN apt-get update && apt-get install -y \
+        build-essential \
+        clang \
+        wget \
+    && rm -rf /var/lib/apt/lists/*
+RUN echo "using gcc : : : <cxxflags>-std=c++11 ;\nusing clang : : : <cxxflags>-std=c++11 ;" > ~/user-config.jam
+COPY docker/boost_1_58_0.tar.bz2.sha256 /boost/boost_1_58_0.tar.bz2.sha256
+RUN cd /boost && \
+    wget https://sourceforge.net/projects/boost/files/boost/1.58.0/boost_1_58_0.tar.bz2/download -O boost_1_58_0.tar.bz2 && \
+    sha256sum -c --quiet --strict boost_1_58_0.tar.bz2.sha256 && \
+    tar -xjf boost_1_58_0.tar.bz2 && cd boost_1_58_0 && \
+    cd tools/build/ && ./bootstrap.sh && ./bjam install && cd ../../ && \
+    cd libs/test/build/ && bjam install && cd ../../../ && \
+    bjam headers && \
+    cd / && rm -R /boost && \
+    ldconfig
+
+COPY README.md /numpy_data/README.md

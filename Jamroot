@@ -1,0 +1,15 @@
+path-constant TOP : . ;
+
+project : requirements <include>$(TOP)/include
+                       <warnings>all
+                       <threading>multi
+                       <variant>debug:<runtime-debugging>on
+                       <variant>release:<optimization>speed
+                       <variant>release:<inlining>full
+                       <variant>release:<instruction-set>native
+                       <toolset>gcc:<cxxflags>-std=c++11 <cxxflags>-pedantic <cxxflags>-Wextra
+                       <toolset>clang:<cxxflags>-std=c++11 <cxxflags>-pedantic <cxxflags>-Wextra
+        : ;
+
+build-project test ;
+build-project examples ;
