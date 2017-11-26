@@ -68,8 +68,8 @@ To create the test containers:
    `[sudo] docker build -f docker/Dockerfile.xenial -t numpy_data/xenial .`
 
 3. Run the Docker image:
-   `[sudo] docker run -it --rm -v "$(pwd)":/numpy_data numpy_data/trusty` and/or
-   `[sudo] docker run -it --rm -v "$(pwd)":/numpy_data numpy_data/xenial`
+   `[sudo] docker run -it --rm -v "$(pwd)":/numpy_data --user "$(id -u)" numpy_data/trusty` and/or
+   `[sudo] docker run -it --rm -v "$(pwd)":/numpy_data --user "$(id -u)" numpy_data/xenial`
 
    This maps the current working directory (project root) into the container, so all changes are
    immediately available in both containers. Also all binaries created will be available outside of
